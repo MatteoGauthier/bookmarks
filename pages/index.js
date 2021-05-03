@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import LoadingSpinner from "../components/svg/LoadingSpinner";
 import SearchIcon from "@heroicons/react/outline/SearchIcon";
 import LinkTo from "../components/svg/LinkTo";
+import ThemeSwitcher from "../components/ThemeSwitcher";
 
 import Image from "next/image";
 
@@ -29,47 +30,45 @@ export default function Home({ bookmarks: { items } }) {
 	}, [search]);
 	return (
 		<div>
-			<div className="w-full bg-white h-52">
-				<header className="flex flex-col justify-center w-full h-full mx-auto lg:max-w-screen-lg ">
-					<h1 className="font-normal leading-none tracking-1 mb-5 text-52 font-satoshi text-[#05001A]">
+			<ThemeSwitcher />
+			<div className="w-full transition-colors duration-300 bg-black py-7 dark:bg-white md:h-52">
+				<header className="flex flex-col justify-center w-full h-full px-6 mx-auto lg:max-w-screen-lg lg:px-0">
+					<h1 className="font-normal leading-none tracking-1 md:mb-5 mb-3 md:text-52 text-2xl font-satoshi text-white dark:text-[#05001A]">
 						<b>bookmarks</b>.squale.agency
 					</h1>
-					<p className="font-light text-[#4D515F] leading-5 text-lg">
-						<span className="font-bold text-xl font-satoshi leading-5 text-[#1A1E31]">bookmarks</span> est une base de
-						donnée des outils favoris de squale.agency, chacun des outils sont regroupés par catégories, vous pouvez
-						filtrer les résultats ou chercher un outil avec un mot clé.
+					<p className="font-light text-gray-400 dark:text-[#4D515F] leading-4 md:leading-5 text-base md:text-lg">
+						<span className="font-bold text-lg font-satoshi leading-5 text-gray-50 dark:text-[#1A1E31]">bookmarks</span>{" "}
+						est une base de donnée des outils favoris de squale.agency, chacun des outils sont regroupés par catégories,
+						vous pouvez filtrer les résultats ou chercher un outil avec un mot clé.
 					</p>
 				</header>
 			</div>
-			<main className="mx-auto mt-8 lg:max-w-screen-lg">
-				<div className="justify-between hidden text-white ">
-					<div className="flex flex-col">
-						<label>Filtrer par tag</label>
-					</div>
-					<div className="flex-col items-end space-y-2">
+			<main className="px-6 mx-auto mt-8 lg:max-w-screen-lg lg:px-0">
+				<div className="flex mb-4 text-gray-900 dark:text-white">
+					<div className="flex-col items-end w-full space-y-1 md:w-auto">
 						<label>Rechercher</label>
-
-						<div className="relative border-white border-opacity-25 rounded hover:outline-none">
-							<div className="absolute inset-y-0 right-0 flex items-center pl-2 text-gray-300 pointer-events-none">
-								{status == "loading" ? <LoadingSpinner /> : <SearchIcon />}
+						<div className="relative w-full border-white border-opacity-25 rounded hover:outline-none">
+							<div className="absolute inset-y-0 left-0 flex items-center px-2 text-gray-300 pointer-events-none">
+								{status == "loading" ? <LoadingSpinner /> : <SearchIcon className="w-5 h-5" />}
 							</div>
 							<input
 								value={search}
 								onChange={(e) => setSearch(e.target.value)}
 								type="text"
-								className="text-white bg-transparent border-white border-opacity-25"
+								className="w-full p-2 pl-8 text-white bg-transparent border border-black border-opacity-25 rounded-md outline-none dark:border-gray-500"
 								name="search"
+								placeholder="Colors, dev"
 								id="search"
 							/>
 						</div>
 					</div>
 				</div>
-				<div className="grid grid-cols-2 gap-4">
+				<div className="grid gap-4 md:grid-cols-2">
 					{filteredStates.map((e, idx) => (
 						<a
 							href={e.link + "?ref=squale.agency"}
 							key={idx}
-							className="flex items-start justify-start w-full px-2 py-2 text-white transition-all transition-transform duration-200 bg-blue-800 border border-blue-100 rounded-md cursor-pointer transform-gpu ring-0 hover:ring-1 ring-blue-100 bg-opacity-5 border-opacity-10"
+							className="flex items-start justify-start w-full px-2 py-2 text-gray-900 transition-all duration-100 bg-blue-800 rounded-md cursor-pointer dark:text-white transform-gpu ring-1 dark:hover:ring-opacity-100 hover:ring-opacity-100 dark:ring-opacity-10 ring-opacity-10 dark:ring-blue-100 ring-blue-700 bg-opacity-5"
 						>
 							<img
 								loading="lazy"
@@ -82,10 +81,10 @@ export default function Home({ bookmarks: { items } }) {
 							/>
 							<div className="flex flex-col flex-1 ml-3">
 								<span className="text-base font-medium leading-6 line-clamp-1">{e.title}</span>
-								<p className="text-sm leading-tight text-gray-400 line-clamp-2">{e.excerpt}</p>
+								<p className="text-sm leading-tight text-gray-600 dark:text-gray-400 line-clamp-2">{e.excerpt}</p>
 							</div>
-							<div className="flex items-center justify-center w-12 h-12 ml-2 bg-blue-200 rounded-md text-opacity-80 text-blue-50 bg-opacity-5">
-								<LinkTo />
+							<div className="flex items-center justify-center w-10 h-10 ml-2 bg-blue-200 rounded-md md:w-12 md:h-12 text-opacity-80 text-blue-50 bg-opacity-5">
+								<LinkTo className="w-4 h-4 md:w-6 md:h-6" />
 							</div>
 						</a>
 					))}
