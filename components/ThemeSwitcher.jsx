@@ -10,6 +10,7 @@ const ThemeChanger = () => {
       {theme == "light" ? (
         <button
           className="p-2 border border-gray-800 rounded-md"
+          type="button"
           onClick={() => setTheme("dark")}
         >
           <MoonIcon className="w-6 h-6 text-gray-300" />
@@ -17,6 +18,7 @@ const ThemeChanger = () => {
       ) : (
         <button
           className="p-2 border border-gray-400 rounded-md"
+          type="button"
           onClick={() => setTheme("light")}
         >
           <SunIcon className="w-6 h-6 text-gray-800" />

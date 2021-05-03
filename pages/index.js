@@ -51,7 +51,7 @@ export default function Home({ bookmarks: { items } }) {
 					</p>
 				</header>
 			</div>
-			<main className="px-6 mx-auto mt-8 lg:max-w-screen-lg lg:px-0">
+			<main className="px-6 mx-auto my-8 lg:max-w-screen-lg lg:px-0">
 				<div className="flex mb-4 text-gray-900 dark:text-white">
 					<div className="flex-col items-end w-full space-y-1 md:w-auto">
 						<label>Rechercher</label>
