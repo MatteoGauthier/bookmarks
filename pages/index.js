@@ -7,8 +7,6 @@ import LinkTo from "../components/svg/LinkTo";
 import ThemeSwitcher from "../components/ThemeSwitcher";
 import Skeleton from "../components/Skeleton";
 
-import Image from "next/image";
-
 export default function Home({ bookmarks: { items } }) {
 	const [search, setSearch] = useState("");
 	const [status, setStatus] = useState("");
@@ -31,6 +29,15 @@ export default function Home({ bookmarks: { items } }) {
 	}, [search]);
 	return (
 		<div>
+			<Head>
+				<title>
+					Bookmarks - squale.agency - Liste d'outils et ressources de qualités en développement, design, etc...
+				</title>
+				<meta
+					name="description"
+					content="bookmarks est une base de donnée des outils favoris de squale.agency, chacun des outils sont regroupés par catégories, vous pouvez filtrer les résultats ou chercher un outil avec un mot clé."
+				/>
+			</Head>
 			<ThemeSwitcher />
 			<div className="w-full transition-colors duration-300 bg-black py-7 dark:bg-white md:h-52">
 				<header className="flex flex-col justify-center w-full h-full px-6 mx-auto lg:max-w-screen-lg lg:px-0">
