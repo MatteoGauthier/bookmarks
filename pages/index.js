@@ -5,6 +5,7 @@ import LoadingSpinner from "../components/svg/LoadingSpinner";
 import SearchIcon from "@heroicons/react/outline/SearchIcon";
 import LinkTo from "../components/svg/LinkTo";
 import ThemeSwitcher from "../components/ThemeSwitcher";
+import Skeleton from "../components/Skeleton";
 
 import Image from "next/image";
 
@@ -64,30 +65,39 @@ export default function Home({ bookmarks: { items } }) {
 					</div>
 				</div>
 				<div className="grid gap-4 md:grid-cols-2">
-					{filteredStates.map((e, idx) => (
-						<a
-							href={e.link + "?ref=squale.agency"}
-							key={idx}
-							className="flex items-start justify-start w-full px-2 py-2 text-gray-900 transition-all duration-100 bg-blue-800 rounded-md cursor-pointer dark:text-white transform-gpu ring-1 dark:hover:ring-opacity-100 hover:ring-opacity-100 dark:ring-opacity-10 ring-opacity-10 dark:ring-blue-100 ring-blue-700 bg-opacity-5"
-						>
-							<img
-								loading="lazy"
-								className="object-cover w-16 h-16 bg-gray-300 rounded bg-opacity-30 text-indeb"
-								src={`${e.cover}`}
-								alt=""
-								style={{
-									textIndent: -1000,
-								}}
-							/>
-							<div className="flex flex-col flex-1 ml-3">
-								<span className="text-base font-medium leading-6 line-clamp-1">{e.title}</span>
-								<p className="text-sm leading-tight text-gray-600 dark:text-gray-400 line-clamp-2">{e.excerpt}</p>
-							</div>
-							<div className="flex items-center justify-center w-10 h-10 ml-2 bg-blue-200 rounded-md md:w-12 md:h-12 text-opacity-80 text-blue-50 bg-opacity-5">
-								<LinkTo className="w-4 h-4 md:w-6 md:h-6" />
-							</div>
-						</a>
-					))}
+					{filteredStates.length !== 0 ? (
+						filteredStates.map((e, idx) => (
+							<a
+								href={e.link + "?ref=squale.agency"}
+								key={idx}
+								className="flex items-start justify-start w-full px-2 py-2 text-gray-900 transition-all duration-100 bg-blue-800 rounded-md cursor-pointer dark:text-white transform-gpu ring-1 dark:hover:ring-opacity-100 hover:ring-opacity-100 dark:ring-opacity-10 ring-opacity-10 dark:ring-blue-100 ring-blue-700 bg-opacity-5"
+							>
+								<img
+									loading="lazy"
+									className="object-cover w-16 h-16 bg-gray-300 rounded bg-opacity-30 text-indeb"
+									src={`${e.cover}`}
+									alt=""
+									style={{
+										textIndent: -1000,
+									}}
+								/>
+								<div className="flex flex-col flex-1 ml-3">
+									<span className="text-base font-medium leading-6 line-clamp-1">{e.title}</span>
+									<p className="text-sm leading-tight text-gray-600 dark:text-gray-400 line-clamp-2">{e.excerpt}</p>
+								</div>
+								<div className="flex items-center justify-center w-10 h-10 ml-2 bg-blue-200 rounded-md md:w-12 md:h-12 text-opacity-80 text-blue-50 bg-opacity-5">
+									<LinkTo className="w-4 h-4 md:w-6 md:h-6" />
+								</div>
+							</a>
+						))
+					) : (
+						<>
+							<Skeleton />
+							<Skeleton />
+							<Skeleton />
+							<Skeleton />
+						</>
+					)}
 				</div>
 			</main>
 		</div>
