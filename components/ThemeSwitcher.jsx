@@ -12,6 +12,7 @@ const ThemeChanger = () => {
           className="p-2 border border-gray-800 rounded-md"
           type="button"
           onClick={() => setTheme("dark")}
+          aria-label="theme switch"
         >
           <MoonIcon className="w-6 h-6 text-gray-300" />
         </button>
@@ -24,6 +25,7 @@ const ThemeChanger = () => {
           className="p-2 border border-gray-400 rounded-md"
           type="button"
           onClick={() => setTheme("light")}
+          aria-label="theme switch"
         >
           <SunIcon className="w-6 h-6 text-gray-800" />
         </button>
@@ -36,6 +38,7 @@ const ThemeChanger = () => {
           className="p-2 border border-gray-800 rounded-md"
           type="button"
           onClick={() => setTheme("dark")}
+          aria-label="theme switch"
         >
           <MoonIcon className="w-6 h-6 text-gray-300" />
         </button>
