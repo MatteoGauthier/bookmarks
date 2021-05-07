@@ -5,9 +5,9 @@ import MoonIcon from "@heroicons/react/outline/MoonIcon";
 const ThemeChanger = () => {
   const { theme, setTheme } = useTheme();
 
-  return (
-    <div className="absolute top-0 right-0 m-4 md:m-12 md:left-0">
-      {theme == "light" ? (
+  if (theme == "light")
+    return (
+      <div className="absolute top-0 right-0 m-4 md:m-12 md:left-0">
         <button
           className="p-2 border border-gray-800 rounded-md"
           type="button"
@@ -15,7 +15,11 @@ const ThemeChanger = () => {
         >
           <MoonIcon className="w-6 h-6 text-gray-300" />
         </button>
-      ) : (
+      </div>
+    );
+  if (theme == "dark")
+    return (
+      <div className="absolute top-0 right-0 m-4 md:m-12 md:left-0">
         <button
           className="p-2 border border-gray-400 rounded-md"
           type="button"
@@ -23,8 +27,19 @@ const ThemeChanger = () => {
         >
           <SunIcon className="w-6 h-6 text-gray-800" />
         </button>
-      )}
-    </div>
+      </div>
+    );
+
+  return (
+    <div className="absolute top-0 right-0 m-4 md:m-12 md:left-0">
+        <button
+          className="p-2 border border-gray-800 rounded-md"
+          type="button"
+          onClick={() => setTheme("dark")}
+        >
+          <MoonIcon className="w-6 h-6 text-gray-300" />
+        </button>
+      </div>
   );
 };
 
