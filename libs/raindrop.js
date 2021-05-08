@@ -10,7 +10,7 @@ export const getBookmarks = async () => {
 		headers: {
 			Authorization: `Bearer ${token}`,
 		},
-	}).catch((error) => console.table(error));
+	}).catch((error) => console.error(error));
 
 	if (!response || response.status !== 200) {
 		console.error(`Rain drop return ${response ? response.statusText: 'request error'} starting fallback process`);
