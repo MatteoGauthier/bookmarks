@@ -63,7 +63,7 @@ export default function Home({ bookmarks: { items } }) {
 								value={search}
 								onChange={(e) => setSearch(e.target.value)}
 								type="text"
-								className="w-full p-2 pl-8 text-white bg-transparent border border-black border-opacity-25 rounded-md outline-none dark:border-gray-500"
+								className="w-full p-2 pl-8 dark:text-white text-gray-700 bg-transparent border border-black border-opacity-25 rounded-md outline-none dark:border-gray-500"
 								name="search"
 								placeholder="Colors, dev"
 								id="search"
