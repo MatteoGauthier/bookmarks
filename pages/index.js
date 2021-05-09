@@ -1,10 +1,16 @@
 import Head from "next/head";
+import dynamic from 'next/dynamic'
+
 import { getBookmarks } from "../libs/raindrop";
 import React, { useEffect, useState } from "react";
 import LoadingSpinner from "../components/svg/LoadingSpinner";
 import SearchIcon from "@heroicons/react/outline/SearchIcon";
 import LinkTo from "../components/svg/LinkTo";
-import ThemeSwitcher from "../components/ThemeSwitcher";
+const ThemeSwitcher = dynamic(
+	() => import('../components/ThemeSwitcher'),
+	{ ssr: false }
+  )
+  
 import Skeleton from "../components/Skeleton";
 
 export default function Home({ bookmarks: { items } }) {
@@ -37,6 +43,7 @@ export default function Home({ bookmarks: { items } }) {
 					name="description"
 					content="bookmarks est une base de donnée des outils favoris de squale.agency, chacun des outils sont regroupés par catégories, vous pouvez filtrer les résultats ou chercher un outil avec un mot clé."
 				/>
+				
 			</Head>
 			<ThemeSwitcher />
 			<div className="w-full transition-colors duration-300 bg-black py-7 dark:bg-white md:h-52">
@@ -63,7 +70,7 @@ export default function Home({ bookmarks: { items } }) {
 								value={search}
 								onChange={(e) => setSearch(e.target.value)}
 								type="text"
-								className="w-full p-2 pl-8 dark:text-white text-gray-700 bg-transparent border border-black border-opacity-25 rounded-md outline-none dark:border-gray-500"
+								className="w-full p-2 pl-8 text-gray-700 bg-transparent border border-black border-opacity-25 rounded-md outline-none dark:text-white dark:border-gray-500"
 								name="search"
 								placeholder="Colors, dev"
 								id="search"
@@ -99,10 +106,10 @@ export default function Home({ bookmarks: { items } }) {
 						))
 					) : (
 						<>
-							<Skeleton />
-							<Skeleton />
-							<Skeleton />
-							<Skeleton />
+							<Skeleton id="skelt-1" />
+							<Skeleton id="skelt-2" />
+							<Skeleton id="skelt-3" />
+							<Skeleton id="skelt-4" />
 						</>
 					)}
 				</div>
@@ -112,6 +119,7 @@ export default function Home({ bookmarks: { items } }) {
 }
 export async function getStaticProps() {
 	const bookmarks = await getBookmarks();
+	console.log("Bookmarks data fetched")
 	// const bookmarks = await res.json();
 	return {
 		props: { bookmarks },

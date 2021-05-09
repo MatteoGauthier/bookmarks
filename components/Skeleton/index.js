@@ -1,8 +1,17 @@
-import CoverSkeleton from './CoverSkeleton'
-import ContentSkeleton from './ContentSkeleton'
-function Skeleton() {
+import CoverSkeleton from "./CoverSkeleton";
+import ContentSkeleton from "./ContentSkeleton";
+import { useState, useEffect } from "react";
+
+function Skeleton(props) {
+	const [mounted, setMounted] = useState(false);
+	useEffect(() => setMounted(true), []);
+
+	if (!mounted) return null;
 	return (
-		<div className="flex items-start justify-start w-full px-2 py-2 text-gray-900 transition-all duration-100 bg-blue-800 rounded-md cursor-pointer dark:text-white transform-gpu ring-1 dark:ring-opacity-10 ring-opacity-10 dark:ring-blue-100 ring-blue-700 bg-opacity-5">
+		<div
+			{...props}
+			className="flex items-start justify-start w-full px-2 py-2 text-gray-900 transition-all duration-100 bg-blue-800 rounded-md cursor-pointer dark:text-white transform-gpu ring-1 dark:ring-opacity-10 ring-opacity-10 dark:ring-blue-100 ring-blue-700 bg-opacity-5"
+		>
 			<CoverSkeleton />
 			<div className="flex flex-col flex-1 mt-1 ml-3 space-y-1">
 				<ContentSkeleton />
