@@ -2,6 +2,8 @@ import Head from "next/head";
 import dynamic from 'next/dynamic'
 
 import { getBookmarks } from "../libs/raindrop";
+import { useRouter } from 'next/router'
+
 import React, { useEffect, useState } from "react";
 import LoadingSpinner from "../components/svg/LoadingSpinner";
 import SearchIcon from "@heroicons/react/outline/SearchIcon";
@@ -14,9 +16,16 @@ const ThemeSwitcher = dynamic(
 import Skeleton from "../components/Skeleton";
 
 export default function Home({ bookmarks: { items } }) {
+	const router = useRouter()
+	const { q } = router.query
+
 	const [search, setSearch] = useState("");
 	const [status, setStatus] = useState("");
 	const [filteredStates, setFilteredStates] = useState([]);
+
+	useEffect(() => {
+		if (q) setSearch(q)
+	  })
 
 	useEffect(() => {
 		const timer = setTimeout(() => {

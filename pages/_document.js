@@ -13,7 +13,30 @@ class MyDocument extends Document {
 					<meta name="msapplication-TileColor" content="#000" />
 					<meta name="theme-color" content="#000" />
 					<link rel="preconnect" href="https://fonts.gstatic.com" />
-					<link rel="canonical" href="http://bookmarks.squale.agency"/>
+					<link rel="canonical" href="http://bookmarks.squale.agency" />
+					<meta property="twitter:card" content="summary" />
+					<meta property="twitter:url" content="https://bookmarks.squale.agency/" />
+					<meta
+						property="twitter:title"
+						content="Bookmarks - squale.agency - Liste d'outils et ressources de qualités en développement, design, etc..."
+					/>
+					<meta
+						property="twitter:site"
+						content="@MatteoGauthier_"
+					/>
+					<meta
+						property="twitter:creator"
+						content="@MatteoGauthier_"
+					/>
+					<meta
+						property="twitter:description"
+						content="bookmarks est une base de donnée des outils favoris de squale.agency, chacun des outils sont regroupés par catégories, vous pouvez filtrer les résultats ou chercher un outil avec un mot clé."
+					/>
+					<meta property="twitter:image" content="/apple-touch-icon.png" />
+					<meta
+						name="keywords"
+						content="bookmarks, liste, squale, Mattèo Gauthier, Candice Fradet, Mattèo, ressources, design"
+					/>
 					<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
 					<script async src="https://www.googletagmanager.com/gtag/js?id=G-6RSQQD3GZ5"></script>
 					<script
@@ -25,6 +48,25 @@ class MyDocument extends Document {
               gtag('config', 'G-6RSQQD3GZ5');`,
 						}}
 					/>
+					<script
+						type="application/ld+json"
+						dangerouslySetInnerHTML={{
+							__html: `
+                        
+							{
+							  "@context": "https://schema.org/",
+							  "@type": "WebSite",
+							  "name": "Bookmarks",
+							  "url": "https://bookmarks.squale.agency",
+							  "potentialAction": {
+								"@type": "SearchAction",
+								"target": "https://bookmarks.squale.agency/?q={search_term_string}",
+								"query-input": "required name=search_term_string"
+							  }
+							}
+    `,
+						}}
+					></script>
 				</Head>
 				<body className="transition-colors duration-200 bg-white dark:bg-black">
 					<Main />
