@@ -13,7 +13,7 @@ class MyDocument extends Document {
 					<meta name="msapplication-TileColor" content="#000" />
 					<meta name="theme-color" content="#000" />
 					<link rel="preconnect" href="https://fonts.gstatic.com" />
-					<link rel="canonical" href="http://bookmarks.squale.agency" />
+					<link rel="canonical" href="https://bookmarks.squale.agency" />
 					<meta property="twitter:card" content="summary" />
 					<meta property="twitter:url" content="https://bookmarks.squale.agency/" />
 					<meta
