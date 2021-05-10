@@ -14,9 +14,9 @@ const ThemeChanger = () => {
 	return (
 		<div className="absolute top-0 right-0 m-4 md:m-12 md:left-0">
 			<button
-				className={`p-2 border rounded-md ${theme == 'light' ? "border-gray-800" : "border-gray-400"}`}
+				className={`p-2 border rounded-md ${theme == "light" ? "border-gray-800" : "border-gray-400"}`}
 				type="button"
-				onClick={() => setTheme("dark")}
+				onClick={() => setTheme(theme == "dark" ? 'light' : 'dark' )}
 				aria-label="theme switch"
 			>
 				{theme == "light" ? (

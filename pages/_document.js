@@ -67,6 +67,8 @@ class MyDocument extends Document {
     `,
 						}}
 					></script>
+					<link rel="search" href="/opensearch.xml" type="application/opensearchdescription+xml" title="Bookmarks search"/>
+
 				</Head>
 				<body className="transition-colors duration-200 bg-white dark:bg-black">
 					<Main />

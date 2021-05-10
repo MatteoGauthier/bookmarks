@@ -1,36 +1,39 @@
 import Head from "next/head";
-import dynamic from 'next/dynamic'
+import dynamic from "next/dynamic";
 
 import { getBookmarks } from "../libs/raindrop";
-import { useRouter } from 'next/router'
+import { useRouter } from "next/router";
 
 import React, { useEffect, useState } from "react";
 import LoadingSpinner from "../components/svg/LoadingSpinner";
 import SearchIcon from "@heroicons/react/outline/SearchIcon";
 import LinkTo from "../components/svg/LinkTo";
-const ThemeSwitcher = dynamic(
-	() => import('../components/ThemeSwitcher'),
-	{ ssr: false }
-  )
-  
+const ThemeSwitcher = dynamic(() => import("../components/ThemeSwitcher"), { ssr: false });
+
 import Skeleton from "../components/Skeleton";
 
 export default function Home({ bookmarks: { items } }) {
-	const router = useRouter()
-	const { q } = router.query
+	const router = useRouter();
+	const { q } = router.query;
 
 	const [search, setSearch] = useState("");
 	const [status, setStatus] = useState("");
+	const [runned, setRunned] = useState(false);
 	const [filteredStates, setFilteredStates] = useState([]);
 
 	useEffect(() => {
-		if (q) setSearch(q)
-	  })
-
+		if (q && !runned) {
+			setSearch(q);
+			setRunned(true);
+		}
+	});
 	useEffect(() => {
 		const timer = setTimeout(() => {
 			const filter = items.filter((elm) => {
-				return elm.title.toLowerCase().includes(search.toLowerCase());
+				return (
+					elm.title.toLowerCase().includes(search.toLowerCase()) &&
+					elm.excerpt.toLowerCase().includes(search.toLowerCase())
+				);
 			});
 
 			setStatus("success");
@@ -52,7 +55,6 @@ export default function Home({ bookmarks: { items } }) {
 					name="description"
 					content="bookmarks est une base de donnée des outils favoris de squale.agency, chacun des outils sont regroupés par catégories, vous pouvez filtrer les résultats ou chercher un outil avec un mot clé."
 				/>
-				
 			</Head>
 			<ThemeSwitcher />
 			<div className="w-full transition-colors duration-300 bg-black py-7 dark:bg-white md:h-52">
@@ -77,7 +79,11 @@ export default function Home({ bookmarks: { items } }) {
 							</div>
 							<input
 								value={search}
-								onChange={(e) => setSearch(e.target.value)}
+								// onClick={(e) => (e.target.value = "")}
+								defaultValue={q && ""}
+								onChange={(e) => {
+									setSearch(e.target.value);
+								}}
 								type="text"
 								className="w-full p-2 pl-8 text-gray-700 bg-transparent border border-black border-opacity-25 rounded-md outline-none dark:text-white dark:border-gray-500"
 								name="search"
@@ -128,7 +134,7 @@ export default function Home({ bookmarks: { items } }) {
 }
 export async function getStaticProps() {
 	const bookmarks = await getBookmarks();
-	console.log("Bookmarks data fetched")
+	console.log("Bookmarks data fetched");
 	// const bookmarks = await res.json();
 	return {
 		props: { bookmarks },
