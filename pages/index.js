@@ -31,13 +31,19 @@ export default function Home({ bookmarks: { items } }) {
 		const timer = setTimeout(() => {
 			const filter = items.filter((elm) => {
 				return (
-					elm.title.toLowerCase().includes(search.toLowerCase()) &&
+					elm.title.toLowerCase().includes(search.toLowerCase()) ||
 					elm.excerpt.toLowerCase().includes(search.toLowerCase())
 				);
 			});
 
 			setStatus("success");
 			setFilteredStates(filter);
+
+			window.history.replaceState(
+				{ additionalInformation: "New search" },
+				document.title,
+				!!search ? document.location.origin + `?q=${search}` : document.location.origin
+			);
 		}, 250);
 
 		return () => {
@@ -72,7 +78,7 @@ export default function Home({ bookmarks: { items } }) {
 			<main className="px-6 mx-auto my-8 lg:max-w-screen-lg lg:px-0">
 				<div className="flex mb-4 text-gray-900 dark:text-white">
 					<div className="flex-col items-end w-full space-y-1 md:w-auto">
-						<label>Rechercher</label>
+						<label>Rechercher un outil</label>
 						<div className="relative w-full border-white border-opacity-25 rounded hover:outline-none">
 							<div className="absolute inset-y-0 left-0 flex items-center px-2 text-gray-300 pointer-events-none">
 								{status == "loading" ? <LoadingSpinner /> : <SearchIcon className="w-5 h-5" />}
