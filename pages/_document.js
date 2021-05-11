@@ -13,7 +13,7 @@ class MyDocument extends Document {
 					<meta name="msapplication-TileColor" content="#000" />
 					<meta name="theme-color" content="#000" />
 					<link rel="preconnect" href="https://fonts.gstatic.com" />
-					<link rel="canonical" href="http://bookmarks.squale.agency" />
+					<link rel="canonical" href="https://bookmarks.squale.agency" />
 					<meta property="twitter:card" content="summary" />
 					<meta property="twitter:url" content="https://bookmarks.squale.agency/" />
 					<meta
@@ -32,7 +32,7 @@ class MyDocument extends Document {
 						property="twitter:description"
 						content="bookmarks est une base de donnée des outils favoris de squale.agency, chacun des outils sont regroupés par catégories, vous pouvez filtrer les résultats ou chercher un outil avec un mot clé."
 					/>
-					<meta property="twitter:image" content="/apple-touch-icon.png" />
+					<meta property="twitter:image" content="https://bookmarks.squale.agency/apple-touch-icon.png" />
 					<meta
 						name="keywords"
 						content="bookmarks, liste, squale, Mattèo Gauthier, Candice Fradet, Mattèo, ressources, design"

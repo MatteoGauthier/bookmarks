@@ -70,7 +70,7 @@ export default function Home({ bookmarks: { items } }) {
 					</h1>
 					<p className="font-light text-gray-400 dark:text-[#4D515F] leading-4 md:leading-5 text-base md:text-lg">
 						<span className="font-bold text-lg font-satoshi leading-5 text-gray-50 dark:text-[#1A1E31]">bookmarks</span>{" "}
-						est une base de donnée des outils favoris de squale.agency, chacun des outils sont regroupés par catégories,
+						est une base de donnée des outils favoris de <a href="https://squale.agency">squale.agency</a>, chacun des outils sont regroupés par catégories,
 						vous pouvez filtrer les résultats ou chercher un outil avec un mot clé.
 					</p>
 				</header>
@@ -111,7 +111,7 @@ export default function Home({ bookmarks: { items } }) {
 									loading="lazy"
 									className="object-cover w-16 h-16 bg-gray-300 rounded broken bg-opacity-30"
 									src={`${e.cover}`}
-									alt=""
+									alt={e.title + ' image cover'}
 									style={{
 										textIndent: -1000,
 									}}
