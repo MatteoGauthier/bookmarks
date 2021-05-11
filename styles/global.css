@@ -16,3 +16,25 @@
 	font-style: normal;
 	unicode-range: U+20, U+2E, U+61-63, U+65, U+67, U+6B-6F, U+71-73, U+75, U+79;
 }
+
+@layer components {
+	.broken:-moz-broken {
+		opacity: 0;
+	}
+
+	.broken {
+		position: relative;
+	}
+
+	.broken::after {
+		@apply w-16 h-16 bg-gray-300 rounded broken bg-opacity-30;
+		content: "";
+		display: block;
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		background-color: white;
+	}
+}

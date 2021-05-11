@@ -109,7 +109,7 @@ export default function Home({ bookmarks: { items } }) {
 							>
 								<img
 									loading="lazy"
-									className="object-cover w-16 h-16 bg-gray-300 rounded bg-opacity-30 text-indeb"
+									className="object-cover w-16 h-16 bg-gray-300 rounded broken bg-opacity-30"
 									src={`${e.cover}`}
 									alt=""
 									style={{
