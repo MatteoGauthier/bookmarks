@@ -70,8 +70,9 @@ export default function Home({ bookmarks: { items } }) {
 					</h1>
 					<p className="font-light text-gray-400 dark:text-[#4D515F] leading-4 md:leading-5 text-base md:text-lg">
 						<span className="font-bold text-lg font-satoshi leading-5 text-gray-50 dark:text-[#1A1E31]">bookmarks</span>{" "}
-						est une base de donnée des outils favoris de <a href="https://squale.agency">squale.agency</a>, chacun des outils sont regroupés par catégories,
-						vous pouvez filtrer les résultats ou chercher un outil avec un mot clé.
+						est une base de donnée des outils favoris de <a href="https://squale.agency">squale.agency</a>, chacun des
+						outils sont regroupés par catégories, vous pouvez filtrer les résultats ou chercher un outil avec un mot
+						clé.
 					</p>
 				</header>
 			</div>
@@ -107,15 +108,16 @@ export default function Home({ bookmarks: { items } }) {
 								key={idx}
 								className="flex items-start justify-start w-full px-2 py-2 text-gray-900 transition-all duration-100 bg-blue-800 rounded-md cursor-pointer dark:text-white transform-gpu ring-1 dark:hover:ring-opacity-100 hover:ring-opacity-100 dark:ring-opacity-10 ring-opacity-10 dark:ring-blue-100 ring-blue-700 bg-opacity-5"
 							>
-								<img
-									loading="lazy"
-									className="object-cover w-16 h-16 bg-gray-300 rounded broken bg-opacity-30"
-									src={`${e.cover}`}
-									alt={e.title + ' image cover'}
-									style={{
-										textIndent: -1000,
-									}}
-								/>
+								<div className="relative object-cover w-16 h-16 bg-gray-300 rounded bg-opacity-30">
+									<img
+										loading="lazy"
+										className="absolute inset-0 w-full h-full"
+										src={`${e.cover}`}
+										alt={e.title + " image cover"}
+
+										onError={e => e.target.remove()}
+									/>
+								</div>
 								<div className="flex flex-col flex-1 ml-3">
 									<span className="text-base font-medium leading-6 line-clamp-1">{e.title}</span>
 									<p className="text-sm leading-tight text-gray-600 dark:text-gray-400 line-clamp-2">{e.excerpt}</p>
