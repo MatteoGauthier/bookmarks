@@ -22,6 +22,6 @@ module.exports = {
 			ringOpacity: ["hover", "active"],
 		},
 	},
-	plugins: [require("@tailwindcss/line-clamp"), require("@tailwindcss/forms")],
+	plugins: [require("@tailwindcss/line-clamp"), require("@tailwindcss/forms"), require('@tailwindcss/aspect-ratio'),],
 	presets: [require("tw-utils/font/inter")],
 };

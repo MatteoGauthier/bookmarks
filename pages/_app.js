@@ -1,14 +1,17 @@
-import { ThemeProvider } from 'next-themes'
+import { Provider } from "next-auth/client";
+import { ThemeProvider } from "next-themes";
 
-import '../styles/global.css'
+import "../styles/global.css";
 
 import "tailwindcss/tailwind.css";
 
 function MyApp({ Component, pageProps }) {
 	return (
-		<ThemeProvider attribute="class" defaultTheme="system">
-			<Component {...pageProps} />
-		</ThemeProvider>
+		<Provider session={pageProps.session}>
+			<ThemeProvider attribute="class" defaultTheme="system">
+				<Component {...pageProps} />
+			</ThemeProvider>
+		</Provider>
 	);
 }
 
