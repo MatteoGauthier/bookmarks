@@ -23,5 +23,5 @@ module.exports = {
 		},
 	},
 	plugins: [require("@tailwindcss/line-clamp"), require("@tailwindcss/forms"), require('@tailwindcss/aspect-ratio'),],
-	presets: [require("tw-utils/font/inter")],
+	presets: [require("tw-utils/font/inter"), require('full-palette')],
 };

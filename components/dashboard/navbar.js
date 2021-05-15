@@ -77,7 +77,7 @@ export default function Navbar() {
 													<img
 														className="w-8 h-8 rounded-full"
 														src={
-															session?.user?.image ||
+															// session?.user?.image ||
 															"https://images.unsplash.com/photo-1511367461989-f85a21fda167?crop=entropy&cs=tinysrgb&fit=facearea&fm=jpg&ixid=MXwxfDB8MXxhbGx8fHx8fHx8fA&ixlib=rb-1.2.1&q=80&w=256&h=256"
 														}
 														alt=""
@@ -110,7 +110,7 @@ export default function Navbar() {
 																	overflow: "hidden",
 																}}
 															>
-																{session ? <>Connected as {session.user.email}</> : null}
+																{session ? <>Connected as {session.user.email}</> : "Not connected"}
 															</div>
 														)}
 													</Menu.Item>
@@ -122,9 +122,9 @@ export default function Navbar() {
 																	active ? "bg-gray-100" : "",
 																	"block px-4 py-2 text-sm w-full text-left text-gray-700"
 																)}
-																onClick={() => signOut()}
+																onClick={() => (session ? signOut() : signIn())}
 															>
-																Sign out
+																{session ? <>Sign Out</> : "Sign in"}
 															</button>
 														)}
 													</Menu.Item>

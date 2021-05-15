@@ -1,9 +1,9 @@
 const fs = require("fs");
 
-
-(async () => {
+process.env.NODE_ENV == "production" ? generateSitmap() : null;
+async function generateSitmap() {
 	const formatYmd = (date) => date.toISOString().slice(0, 10);
-
+	console.log('Generating sitemap.xml');
 	// Example
 
 	const sitemap = `
@@ -23,6 +23,5 @@ const fs = require("fs");
 
 	// If you're not using Prettier, you can remove this.
 
-
 	fs.writeFileSync("public/sitemap.xml", sitemap);
-})();
+}
