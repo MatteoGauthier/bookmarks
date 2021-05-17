@@ -2,6 +2,7 @@ import Head from "next/head";
 import dynamic from "next/dynamic";
 
 import { getBookmarks } from "../libs/raindrop";
+import categories from "../config";
 import { useRouter } from "next/router";
 
 import React, { useEffect, useState } from "react";
@@ -11,6 +12,7 @@ import LinkTo from "../components/svg/LinkTo";
 const ThemeSwitcher = dynamic(() => import("../components/ThemeSwitcher"), { ssr: false });
 
 import Skeleton from "../components/Skeleton";
+import CategoryCheckbox from "../components/CategoryCheckbox";
 
 export default function Home({ bookmarks: { items } }) {
 	const router = useRouter();
@@ -20,6 +22,22 @@ export default function Home({ bookmarks: { items } }) {
 	const [status, setStatus] = useState("");
 	const [runned, setRunned] = useState(false);
 	const [filteredStates, setFilteredStates] = useState([]);
+
+	const [categoriesFilter, setCategoriesFilter] = useState([]);
+
+	const handleCategoriesChange = (category) => {
+		// updating an object instead of a Map
+
+		if (categoriesFilter.includes(category)) {
+			setCategoriesFilter(
+				categoriesFilter.filter((item, i) => {
+					return item !== category;
+				})
+			);
+		} else {
+			setCategoriesFilter([...categoriesFilter, category]);
+		}
+	};
 
 	useEffect(() => {
 		if (q && !runned) {
@@ -78,7 +96,7 @@ export default function Home({ bookmarks: { items } }) {
 			</div>
 			<main className="px-6 mx-auto my-8 lg:max-w-screen-lg lg:px-0">
 				<div className="flex mb-4 text-gray-900 dark:text-white">
-					<div className="flex-col items-end w-full space-y-1 md:w-auto">
+					<div className="flex-col items-end hidden w-full space-y-1 md:w-auto">
 						<label>Rechercher un outil</label>
 						<div className="relative w-full border-white border-opacity-25 rounded hover:outline-none">
 							<div className="absolute inset-y-0 left-0 flex items-center px-2 text-gray-300 pointer-events-none">
@@ -89,7 +107,7 @@ export default function Home({ bookmarks: { items } }) {
 								// onClick={(e) => (e.target.value = "")}
 								defaultValue={q && ""}
 								onChange={(e) => {
-									setSearch(e.target.value);
+									setSearch([...search, e.target.value]);
 								}}
 								type="text"
 								className="w-full p-2 pl-8 text-gray-700 bg-transparent border border-black border-opacity-25 rounded-md outline-none dark:text-white dark:border-gray-500"
@@ -97,6 +115,19 @@ export default function Home({ bookmarks: { items } }) {
 								placeholder="Colors, dev"
 								id="search"
 							/>
+						</div>
+					</div>
+					<div className="flex-1 w-full space-y-1 md:w-auto">
+						<div>Catégories</div>
+						<div className="flex flex-wrap justify-between flex-1 space-x-3">
+							{categories.map((category, idx) => (
+								<CategoryCheckbox
+									key={idx}
+									category={category}
+									checked={categoriesFilter.includes(category.value)}
+									onClick={() => handleCategoriesChange(category.value)}
+								/>
+							))}
 						</div>
 					</div>
 				</div>
@@ -114,8 +145,7 @@ export default function Home({ bookmarks: { items } }) {
 										className="absolute inset-0 w-full h-full"
 										src={`${e.cover}`}
 										alt={e.title + " image cover"}
-
-										onError={e => e.target.remove()}
+										onError={(e) => e.target.remove()}
 									/>
 								</div>
 								<div className="flex flex-col flex-1 ml-3">

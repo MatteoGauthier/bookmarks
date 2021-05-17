@@ -1,24 +1,28 @@
-import { getBookmarks } from "../../libs/raindrop";
+import { getBookmarks } from "../../libs/notion";
 
 export default async (req, res) => {
+	// if (!req.headers.authorization) {
+	// 	return res.status(401).json({
+	// 		text: "auth required",
+	// 	});
+	// }
 
-	let authHeader = req.headers.authorization;
-	let token;
-	if (authHeader.startsWith("Bearer ")) {
-		token = authHeader.substring(7, authHeader.length);
-	} else {
-		return res.status(401).json({
-      text: 'auth required'
-    });
-	}
+	// let authHeader = req.headers.authorization;
+	// let token;
+	// if (authHeader.startsWith("Bearer ")) {
+	// 	token = authHeader.substring(7, authHeader.length);
+	// } else {
+	// 	return res.status(401).json({
+	// 		text: "auth required",
+	// 	});
+	// }
 
-	if (token !== process.env.FUNCTION_AUTH) {
-		return res.status(401).json({
-      text: 'auth required'
-    });
-	}
+	// if (token !== process.env.FUNCTION_AUTH) {
+	// 	return res.status(401).json({
+	// 		text: "auth required",
+	// 	});
+	// }
 
-	console.log(token);
 
 	const response = await getBookmarks();
 
