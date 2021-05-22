@@ -14,8 +14,38 @@ export const getBookmarks = async () => {
 			filter: {
 				or: [
 					{
+						property: "Name",
+						text: {
+							is_not_empty: true,
+						},
+					},
+					{
 						property: "Excerpt",
 						text: {
+							is_not_empty: true,
+						},
+					},
+					{
+						property: "Link",
+						text: {
+							is_not_empty: true,
+						},
+					},
+					{
+						property: "LastUpdate",
+						date: {
+							is_not_empty: true,
+						},
+					},
+					{
+						property: "CreatedAt",
+						date: {
+							is_not_empty: true,
+						},
+					},
+					{
+						property: "Cover",
+						files: {
 							is_not_empty: true,
 						},
 					},
@@ -42,18 +72,31 @@ export const getBookmarks = async () => {
 
 	const responseResult = await response.json();
 
+	const filteredResult = responseResult.results.filter((elm) => {
+		let expr =
+			elm.properties.Cover.files.length !== 0 &&
+			elm.properties.Excerpt.text[0].plain_text !== "" &&
+			elm.properties.LastUpdate.date.start &&
+			elm.properties.Tags.multi_select.length !== 0 &&
+			elm.properties.Link.url.length !== 0 &&
+			elm.properties.Name.title.length !== 0 &&
+			elm.properties.CreatedAt.date.start.length !== 0;
+		return expr;
+	});
+
+
 	const data = {
-		items: responseResult.results.map((element) => {
+		items: filteredResult.map((element) => {
 			return {
-				name: element.properties.Name.title[0]?.plain_text || "empty",
-				link: element.properties.Link?.url || "empty",
-				exercept: element.properties.Excerpt.text[0]?.plain_text || "empty",
-				lastUpdate: element.properties.LastUpdate?.date.start || "empty",
-				createdAt: element.properties.CreatedAt?.date.start || "empty",
-				tags: (element.properties.Tags?.multi_select || ["empty"]).map((tag) => {
+				name: element.properties.Name.title[0].plain_text,
+				link: element.properties.Link.url,
+				excerpt: element.properties.Excerpt.text[0].plain_text,
+				lastUpdate: element.properties.LastUpdate.date.start,
+				createdAt: element.properties.CreatedAt.date.start,
+				tags: element.properties.Tags.multi_select.map((tag) => {
 					return tag.name;
 				}),
-				cover: element.properties.Cover.files[0]?.name || "empty",
+				cover: element.properties.Cover?.files[0]?.name,
 			};
 		}),
 	};

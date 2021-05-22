@@ -1,7 +1,7 @@
 import Head from "next/head";
 import dynamic from "next/dynamic";
 
-import { getBookmarks } from "../libs/raindrop";
+import { getBookmarks } from "../libs/notion";
 import categories from "../config";
 import { useRouter } from "next/router";
 
@@ -20,14 +20,11 @@ export default function Home({ bookmarks: { items } }) {
 
 	const [search, setSearch] = useState("");
 	const [status, setStatus] = useState("");
-	const [runned, setRunned] = useState(false);
 	const [filteredStates, setFilteredStates] = useState([]);
 
 	const [categoriesFilter, setCategoriesFilter] = useState([]);
 
 	const handleCategoriesChange = (category) => {
-		// updating an object instead of a Map
-
 		if (categoriesFilter.includes(category)) {
 			setCategoriesFilter(
 				categoriesFilter.filter((item, i) => {
@@ -40,35 +37,23 @@ export default function Home({ bookmarks: { items } }) {
 	};
 
 	useEffect(() => {
-		if (q && !runned) {
-			setSearch(q);
-			setRunned(true);
-		}
-	});
-	useEffect(() => {
+		console.log(items.length);
+
 		const timer = setTimeout(() => {
 			const filter = items.filter((elm) => {
-				return (
-					elm.title.toLowerCase().includes(search.toLowerCase()) ||
-					elm.excerpt.toLowerCase().includes(search.toLowerCase())
-				);
+				const filterExpression = categoriesFilter.some((f) => elm.tags.includes(f));
+				return categoriesFilter.length == 0 ? true : filterExpression;
 			});
 
 			setStatus("success");
 			setFilteredStates(filter);
-
-			window.history.replaceState(
-				{ additionalInformation: "New search" },
-				document.title,
-				!!search ? document.location.origin + `?q=${search}` : document.location.origin
-			);
 		}, 250);
 
 		return () => {
 			clearTimeout(timer);
 			setStatus("loading");
 		};
-	}, [search]);
+	}, [categoriesFilter]);
 	return (
 		<div>
 			<Head>
@@ -142,14 +127,14 @@ export default function Home({ bookmarks: { items } }) {
 								<div className="relative object-cover w-16 h-16 bg-gray-300 rounded bg-opacity-30">
 									<img
 										loading="lazy"
-										className="absolute inset-0 w-full h-full"
+										className="absolute inset-0 object-cover w-full h-full"
 										src={`${e.cover}`}
-										alt={e.title + " image cover"}
+										alt={e.name + " image cover"}
 										onError={(event) => event.target.remove()}
 									/>
 								</div>
 								<div className="flex flex-col flex-1 ml-3">
-									<span className="text-base font-medium leading-6 line-clamp-1">{e.title}</span>
+									<span className="text-base font-medium leading-6 line-clamp-1">{e.name}</span>
 									<p className="text-sm leading-tight text-gray-600 dark:text-gray-400 line-clamp-2">{e.excerpt}</p>
 								</div>
 								<div className="flex items-center justify-center w-10 h-10 ml-2 bg-blue-200 rounded-md md:w-12 md:h-12 text-opacity-80 text-blue-50 bg-opacity-5">
