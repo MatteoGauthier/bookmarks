@@ -104,7 +104,7 @@ export default function Home({ bookmarks: { items } }) {
 					</div>
 					<div className="flex-1 w-full space-y-1 md:w-auto">
 						<div>Catégories</div>
-						<div className="flex flex-wrap justify-between flex-1 space-x-3">
+						<div className="flex flex-wrap justify-between flex-1 gap-3">
 							{categories.map((category, idx) => (
 								<CategoryCheckbox
 									key={idx}
