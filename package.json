@@ -3,7 +3,7 @@
 	"version": "0.1.0",
 	"private": true,
 	"scripts": {
-		"dev": "next dev",
+		"dev": "cross-env NODE_OPTIONS=--inspect next dev",
 		"build": "next build",
 		"start": "next start",
 		"ngrok": "ngrok http 3000"
@@ -28,6 +28,7 @@
 	},
 	"devDependencies": {
 		"autoprefixer": "^10.2.5",
+		"cross-env": "^7.0.3",
 		"ngrok": "^4.0.1",
 		"postcss": "^8.2.13",
 		"prettier": "^2.2.1",

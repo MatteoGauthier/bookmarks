@@ -145,7 +145,7 @@ export default function Home({ bookmarks: { items } }) {
 										className="absolute inset-0 w-full h-full"
 										src={`${e.cover}`}
 										alt={e.title + " image cover"}
-										onError={(e) => e.target.remove()}
+										onError={(event) => event.target.remove()}
 									/>
 								</div>
 								<div className="flex flex-col flex-1 ml-3">
