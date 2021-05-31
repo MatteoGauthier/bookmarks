@@ -11,7 +11,7 @@ function CategoryCheckbox({ category, checked, ...props }) {
 		<button
 			className={clsx(
 				"flex items-center relative text-white transition-all duration-150 justify-center flex-auto px-1 py-2 rounded-lg focus:outline-none outline-none focus:opacity-90 active:opacity-50 cursor-pointer ",
-				checked ? "ring ring-white" : ""
+				checked ? "ring dark:ring-white ring-blue-600" : ""
 			)}
 			style={{
 				background: category?.gradient,
