@@ -75,7 +75,7 @@ export const getBookmarks = async () => {
 	const filteredResult = responseResult.results.filter((elm) => {
 		let expr =
 			elm.properties.Cover.files.length !== 0 &&
-			elm.properties.Excerpt.text[0].plain_text !== "" &&
+			elm.properties.Excerpt.rich_text[0].plain_text !== "" &&
 			elm.properties.LastUpdate.date.start &&
 			elm.properties.Tags.multi_select.length !== 0 &&
 			elm.properties.Link.url.length !== 0 &&
@@ -90,7 +90,7 @@ export const getBookmarks = async () => {
 			return {
 				name: element.properties.Name.title[0].plain_text,
 				link: element.properties.Link.url,
-				excerpt: element.properties.Excerpt.text[0].plain_text,
+				excerpt: element.properties.Excerpt.rich_text[0].plain_text,
 				lastUpdate: element.properties.LastUpdate.date.start,
 				createdAt: element.properties.CreatedAt.date.start,
 				tags: element.properties.Tags.multi_select.map((tag) => {
