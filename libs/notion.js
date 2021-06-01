@@ -73,7 +73,7 @@ export const getBookmarks = async () => {
 	const responseResult = await response.json();
 
 	const filteredResult = responseResult.results.filter((elm) => {
-		console.log(elm.properties.Cover)
+		
 		let expr =
 			elm.properties.Cover.files.length !== 0 &&
 			elm.properties.Excerpt.rich_text[0].plain_text !== "" &&
@@ -88,7 +88,7 @@ export const getBookmarks = async () => {
 
 	const data = {
 		items: filteredResult.map((element) => {
-			let l = {
+			let l = {	
 				name: element.properties.Name.title[0].plain_text,
 				link: element.properties.Link.url,
 				excerpt: element.properties.Excerpt.rich_text[0].plain_text,
