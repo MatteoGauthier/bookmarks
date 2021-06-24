@@ -6,7 +6,7 @@ function classNames(...classes) {
 	return classes.filter(Boolean).join(" ");
 }
 
-function CategoryCheckbox({ category, checked, ...props }) {
+export default function CategoryCheckbox({ category, checked, ...props }) {
 	return (
 		<button
 			className={clsx(
@@ -23,4 +23,4 @@ function CategoryCheckbox({ category, checked, ...props }) {
 	);
 }
 
-export default CategoryCheckbox;
+ 
