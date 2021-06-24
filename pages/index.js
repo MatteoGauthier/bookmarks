@@ -124,7 +124,7 @@ export default function Home({ bookmarks: { items } }) {
 								key={idx}
 								className="flex items-start justify-start w-full px-2 py-2 text-gray-900 transition-all duration-100 bg-blue-800 rounded-md cursor-pointer dark:text-white transform-gpu ring-1 dark:hover:ring-opacity-100 hover:ring-opacity-100 dark:ring-opacity-10 ring-opacity-10 dark:ring-blue-100 ring-blue-700 bg-opacity-5"
 							>
-								<div className="relative object-cover w-16 h-16 bg-gray-300 rounded bg-opacity-30">
+								<div className="relative object-cover w-16 h-16 bg-transparent rounded bg-opacity-30">
 									<img
 										loading="lazy"
 										className="absolute inset-0 object-cover w-full h-full"
