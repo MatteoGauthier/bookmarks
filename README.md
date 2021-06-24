@@ -8,3 +8,4 @@
 - [x] Notion source
 - [x] Categories
 - Copy Writing
+- Framer Motion
