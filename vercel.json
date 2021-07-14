@@ -1,6 +1,6 @@
 {
   "redirects": [
-    { "source": "/(//github|gh)", "destination": "https://github.com/MatteoGauthier/bookmarks", "permanent": true },
-    { "source": "/(//vercel|vc)", "destination": "https://vercel.com/matteogauthier/bookmarks", "permanent": true }
+    { "source": "/(github|gh)", "destination": "https://github.com/MatteoGauthier/bookmarks", "permanent": true },
+    { "source": "/(vercel|vc)", "destination": "https://vercel.com/matteogauthier/bookmarks", "permanent": true }
   ]
 }
