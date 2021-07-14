@@ -1,0 +1,5 @@
+{
+  "redirects": [
+    { "source": "/(//github|gh)", "destination": "https://github.com/MatteoGauthier/bookmarks", "permanent": true }
+  ]
+}
