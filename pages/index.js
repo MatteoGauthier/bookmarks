@@ -13,6 +13,7 @@ const ThemeSwitcher = dynamic(() => import("../components/ThemeSwitcher"), { ssr
 
 import Skeleton from "../components/Skeleton"
 import CategoryCheckbox from "../components/CategoryCheckbox"
+import { EyeIcon } from "@heroicons/react/outline"
 
 export default function Home({ bookmarks: { items } }) {
 	// console.log( items)
@@ -123,8 +124,14 @@ export default function Home({ bookmarks: { items } }) {
 							<a
 								href={e.link + "?ref=squale.agency"}
 								key={idx}
-								className="flex items-start justify-start w-full px-2 py-2 text-gray-900 transition-all duration-100 bg-blue-800 rounded-md cursor-pointer dark:text-white transform-gpu ring-1 dark:hover:ring-opacity-100 hover:ring-opacity-100 dark:ring-opacity-10 ring-opacity-10 dark:ring-blue-100 ring-blue-700 bg-opacity-5"
+								className="flex relative items-start justify-start w-full px-2 py-2 text-gray-900 transition-all duration-100 bg-blue-800 rounded-md cursor-pointer dark:text-white transform-gpu ring-1 dark:hover:ring-opacity-100 hover:ring-opacity-100 dark:ring-opacity-10 ring-opacity-10 dark:ring-blue-100 ring-blue-700 bg-opacity-5"
 							>
+								{e.score && (
+									<div className="absolute -bottom-2 -right-2 rounded-lg shadow px-1.5 py-1 font-bold bg-gray-50 bg-opacity-90 text-blue-gray-900  leading-none flex items-center justify-center z-30">
+										<EyeIcon className="h-4 w-4 mr-0.5" />
+										<span className="text-xs">{e.score}</span>
+									</div>
+								)}
 								<div className="relative object-cover w-16 h-16 bg-transparent rounded bg-opacity-30">
 									<img
 										loading="lazy"
@@ -141,8 +148,10 @@ export default function Home({ bookmarks: { items } }) {
 									<span className="text-base font-medium leading-6 line-clamp-1">{e.name}</span>
 									<p className="text-sm leading-tight text-gray-600 dark:text-gray-400 line-clamp-2">{e.excerpt}</p>
 								</div>
-								<div className="flex items-center justify-center w-10 h-10 ml-2 bg-blue-200 rounded-md md:w-12 md:h-12 text-opacity-80 text-blue-50 bg-opacity-5">
-									<LinkTo className="w-4 h-4 md:w-6 md:h-6" />
+								<div>
+									<div className="flex items-center justify-center w-10 h-10 ml-2 bg-blue-200 rounded-md md:w-12 md:h-12 text-opacity-80 text-blue-50 bg-opacity-5">
+										<LinkTo className="w-4 h-4 md:w-6 md:h-6" />
+									</div>
 								</div>
 							</a>
 						))
@@ -161,10 +170,11 @@ export default function Home({ bookmarks: { items } }) {
 }
 export async function getStaticProps() {
 	const bookmarks = await getBookmarks()
-	
+
 	console.log("Bookmarks data fetched")
 	// const bookmarks = await res.json();
 	return {
 		props: { bookmarks },
+		revalidate: 240
 	}
 }
