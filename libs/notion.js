@@ -1,8 +1,9 @@
-import fetch from "isomorphic-unfetch";
-import { binRead, binSave } from "./jsonbin";
-const { NOTION_TOKEN: token, NOTIONDB } = process.env;
-const BOOKMARKS_ENDPOINT = `https://api.notion.com/v1/databases/${NOTIONDB}/query`;
-
+import fetch from "isomorphic-unfetch"
+import { binRead, binSave } from "./jsonbin"
+const { NOTION_TOKEN: token, NOTIONDB } = process.env
+const BOOKMARKS_ENDPOINT = `https://api.notion.com/v1/databases/${NOTIONDB}/query`
+import getLinksScore from "./links-stats"
+import { produce } from "immer"
 export const getBookmarks = async () => {
 	const response = await fetch(BOOKMARKS_ENDPOINT, {
 		method: "POST",
@@ -58,22 +59,21 @@ export const getBookmarks = async () => {
 				},
 			],
 		}),
-	}).catch((error) => console.error(error));
+	}).catch((error) => console.error(error))
 
 	if (!response || response.status !== 200) {
-		console.error(`Notion.so return ${response ? response.statusText : "request error"} starting fallback process`);
-		const fallbackData = await binRead({ binId: "60086cbaa3d8a0580c340c0c" });
-		console.log("Fallback data was fetched");
+		console.error(`Notion.so return ${response ? response.statusText : "request error"} starting fallback process`)
+		const fallbackData = await binRead({ binId: "60086cbaa3d8a0580c340c0c" })
+		console.log("Fallback data was fetched")
 		await fallbackData.data.items.sort(function (a, b) {
-			return new Date(b.lastUpdate) - new Date(a.lastUpdate);
-		});
-		return fallbackData.data;
+			return new Date(b.lastUpdate) - new Date(a.lastUpdate)
+		})
+		return fallbackData.data
 	}
 
-	const responseResult = await response.json();
+	const responseResult = await response.json()
 
 	const filteredResult = responseResult.results.filter((elm) => {
-		
 		let expr =
 			elm.properties.Cover.files.length !== 0 &&
 			elm.properties.Excerpt.rich_text[0].plain_text !== "" &&
@@ -81,35 +81,60 @@ export const getBookmarks = async () => {
 			elm.properties.Tags.multi_select.length !== 0 &&
 			elm.properties.Link.url.length !== 0 &&
 			elm.properties.Name.title.length !== 0 &&
-			elm.properties.CreatedAt.date.start.length !== 0;
-		return expr;
-	});
-
+			elm.properties.CreatedAt.date.start.length !== 0
+		return expr
+	})
 
 	const data = {
 		items: filteredResult.map((element) => {
-			let l = {	
+			let l = {
 				name: element.properties.Name.title[0].plain_text,
 				link: element.properties.Link.url,
 				excerpt: element.properties.Excerpt.rich_text[0].plain_text,
 				lastUpdate: element.properties.LastUpdate.date.start,
 				createdAt: element.properties.CreatedAt.date.start,
 				tags: element.properties.Tags.multi_select.map((tag) => {
-					return tag.name;
+					return tag.name
 				}),
 				cover: element.properties.Cover?.files[0]?.name,
-			};
+			}
 			return l
 		}),
-	};
+	}
 
-	await data.items.sort(function (a, b) {
-		return new Date(b.lastUpdate) - new Date(a.lastUpdate);
-	});
+	const ga = await getLinksScore()
 
-	await binSave({ binId: "60086cbaa3d8a0580c340c0c", newId: Date.now(), data })
+	const bookmarksWithScoreAdded = produce(data.items, (draft) => {
+		for (let index = 0; index < draft.length; index++) {
+			ga.forEach((i) => {
+				if (draft[index].link.includes(i[1])) {
+					// console.log(i[1] + " - " + item.link + " - " + i[3])
+					draft[index].score = i[3]
+				}
+			})
+		}
+	})
+
+	const b = {
+		...data,
+		items: [
+			...bookmarksWithScoreAdded
+				.filter((item) => item.score)
+				.sort((a, b) => {
+					if (a.score == b.score) {
+						return new Date(b.lastUpdate) - new Date(a.lastUpdate)
+					}
+					return b.score - a.score
+				}),
+			...bookmarksWithScoreAdded
+				.filter((item) => !item.score)
+				.sort((a, b) => new Date(b.lastUpdate) - new Date(a.lastUpdate)),
+		],
+	}
+
+	await binSave({ binId: "60086cbaa3d8a0580c340c0c", newId: Date.now(), data: b })
 		.then(() => console.log("JSON data saved"))
-		.catch((error) => console.error(error));
+		.catch((error) => console.error(error))
 
-	return data;
-};
+	return b
+}

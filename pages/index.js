@@ -1,59 +1,60 @@
-import Head from "next/head";
-import dynamic from "next/dynamic";
+import Head from "next/head"
+import dynamic from "next/dynamic"
 
-import { getBookmarks } from "../libs/notion";
-import categories from "../config";
-import { useRouter } from "next/router";
+import { getBookmarks } from "../libs/notion"
+import categories from "../config"
+import { useRouter } from "next/router"
 
-import React, { useEffect, useState } from "react";
-import LoadingSpinner from "../components/svg/LoadingSpinner";
-import SearchIcon from "@heroicons/react/outline/SearchIcon";
-import LinkTo from "../components/svg/LinkTo";
-const ThemeSwitcher = dynamic(() => import("../components/ThemeSwitcher"), { ssr: false });
+import React, { useEffect, useState } from "react"
+import LoadingSpinner from "../components/svg/LoadingSpinner"
+import SearchIcon from "@heroicons/react/outline/SearchIcon"
+import LinkTo from "../components/svg/LinkTo"
+const ThemeSwitcher = dynamic(() => import("../components/ThemeSwitcher"), { ssr: false })
 
-import Skeleton from "../components/Skeleton";
-import CategoryCheckbox from "../components/CategoryCheckbox";
+import Skeleton from "../components/Skeleton"
+import CategoryCheckbox from "../components/CategoryCheckbox"
 
 export default function Home({ bookmarks: { items } }) {
-	const router = useRouter();
-	const { q } = router.query;
+	// console.log( items)
+	const router = useRouter()
+	const { q } = router.query
 
-	const [search, setSearch] = useState("");
-	const [status, setStatus] = useState("");
-	const [filteredStates, setFilteredStates] = useState([]);
+	const [search, setSearch] = useState("")
+	const [status, setStatus] = useState("")
+	const [filteredStates, setFilteredStates] = useState([])
 
-	const [categoriesFilter, setCategoriesFilter] = useState([]);
+	const [categoriesFilter, setCategoriesFilter] = useState([])
 
 	const handleCategoriesChange = (category) => {
 		if (categoriesFilter.includes(category)) {
 			setCategoriesFilter(
 				categoriesFilter.filter((item, i) => {
-					return item !== category;
+					return item !== category
 				})
-			);
+			)
 		} else {
-			setCategoriesFilter([...categoriesFilter, category]);
+			setCategoriesFilter([...categoriesFilter, category])
 		}
-	};
+	}
 
 	useEffect(() => {
-		console.log(items.length);
+		console.log(items.length)
 
 		const timer = setTimeout(() => {
 			const filter = items.filter((elm) => {
-				const filterExpression = categoriesFilter.some((f) => elm.tags.includes(f));
-				return categoriesFilter.length == 0 ? true : filterExpression;
-			});
+				const filterExpression = categoriesFilter.some((f) => elm.tags.includes(f))
+				return categoriesFilter.length == 0 ? true : filterExpression
+			})
 
-			setStatus("success");
-			setFilteredStates(filter);
-		}, 250);
+			setStatus("success")
+			setFilteredStates(filter)
+		}, 250)
 
 		return () => {
-			clearTimeout(timer);
-			setStatus("loading");
-		};
-	}, [categoriesFilter]);
+			clearTimeout(timer)
+			setStatus("loading")
+		}
+	}, [categoriesFilter])
 	return (
 		<div>
 			<Head>
@@ -92,7 +93,7 @@ export default function Home({ bookmarks: { items } }) {
 								// onClick={(e) => (e.target.value = "")}
 								defaultValue={q && ""}
 								onChange={(e) => {
-									setSearch([...search, e.target.value]);
+									setSearch([...search, e.target.value])
 								}}
 								type="text"
 								className="w-full p-2 pl-8 text-gray-700 bg-transparent border border-black border-opacity-25 rounded-md outline-none dark:text-white dark:border-gray-500"
@@ -131,8 +132,8 @@ export default function Home({ bookmarks: { items } }) {
 										src={`${e.cover}`}
 										alt={e.name + " image cover"}
 										onError={(event) => {
-											console.log(e);
-											event.target.remove();
+											console.log(e)
+											event.target.remove()
 										}}
 									/>
 								</div>
@@ -156,13 +157,14 @@ export default function Home({ bookmarks: { items } }) {
 				</div>
 			</main>
 		</div>
-	);
+	)
 }
 export async function getStaticProps() {
-	const bookmarks = await getBookmarks();
-	console.log("Bookmarks data fetched");
+	const bookmarks = await getBookmarks()
+	
+	console.log("Bookmarks data fetched")
 	// const bookmarks = await res.json();
 	return {
 		props: { bookmarks },
-	};
+	}
 }

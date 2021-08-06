@@ -1,20 +1,22 @@
 /* This example requires Tailwind CSS v2.0+ */
-import { signIn, signOut, useSession } from "next-auth/client";
-import Link from "next/link";
-import { Fragment } from "react";
-import { Disclosure, Menu, Transition } from "@headlessui/react";
-import { MenuIcon, PlusIcon, XIcon, ArrowLeftIcon } from "@heroicons/react/outline";
+import { signIn, signOut, useSession } from "next-auth/client"
+import Link from "next/link"
+import { Fragment } from "react"
+import { Disclosure, Menu, Transition } from "@headlessui/react"
+import { MenuIcon, PlusIcon, XIcon, ArrowLeftIcon } from "@heroicons/react/outline"
 
-const navigation = [{ name: "Back to bookmarks", href: "#", current: true }];
+const navigation = [{ name: "Back to bookmarks", href: "#", current: true }]
 
 function classNames(...classes) {
-	return classes.filter(Boolean).join(" ");
+	return classes.filter(Boolean).join(" ")
 }
 
 export default function Navbar() {
-	const [session, loading] = useSession();
+	const [session, loading] = useSession()
 
-	if (session) console.log(session);
+	if (session) console.log(session)
+
+	return null
 
 	//   return <>
 	//     {!session && <>
@@ -157,5 +159,5 @@ export default function Navbar() {
 				</>
 			)}
 		</Disclosure>
-	);
+	)
 }
