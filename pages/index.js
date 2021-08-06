@@ -127,7 +127,7 @@ export default function Home({ bookmarks: { items } }) {
 								className="flex relative items-start justify-start w-full px-2 py-2 text-gray-900 transition-all duration-100 bg-blue-800 rounded-md cursor-pointer dark:text-white transform-gpu ring-1 dark:hover:ring-opacity-100 hover:ring-opacity-100 dark:ring-opacity-10 ring-opacity-10 dark:ring-blue-100 ring-blue-700 bg-opacity-5"
 							>
 								{e.score && (
-									<div className="absolute -bottom-2 -right-2 rounded-lg shadow px-1.5 py-1 font-bold bg-gray-50 bg-opacity-90 text-blue-gray-900  leading-none flex items-center justify-center z-30">
+									<div className="absolute -bottom-2 -right-2 rounded-lg shadow px-1.5 py-1 font-normal dark:bg-gray-900 bg-white bg-opacity-90 text-blue-gray-900 dark:text-white leading-none flex items-center justify-center z-30">
 										<EyeIcon className="h-4 w-4 mr-0.5" />
 										<span className="text-xs">{e.score}</span>
 									</div>
