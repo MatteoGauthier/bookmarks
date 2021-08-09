@@ -60,11 +60,11 @@ export default function Home({ bookmarks: { items } }) {
 		<div>
 			<Head>
 				<title>
-					Bookmarks - squale.agency - Liste d'outils et ressources de qualités en développement, design, etc...
+					Bookmarks | Ressources et outils du web (design, fonts, icons, et +)
 				</title>
 				<meta
 					name="description"
-					content="bookmarks est une base de donnée des outils favoris de squale.agency, chacun des outils sont regroupés par catégories, vous pouvez filtrer les résultats ou chercher un outil avec un mot clé."
+					content="Liste d'outils, de ressources et de services utilisés par squale.agency. Utile pour les créatifs, les développeurs ou encore le marketing. Mis à jour régulièrement !"
 				/>
 			</Head>
 			<ThemeSwitcher />
