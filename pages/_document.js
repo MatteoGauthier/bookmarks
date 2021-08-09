@@ -18,7 +18,7 @@ class MyDocument extends Document {
 					<meta property="twitter:url" content="https://bookmarks.squale.agency/" />
 					<meta
 						property="twitter:title"
-						content="Bookmarks - squale.agency - Liste d'outils et ressources de qualités en développement, design, etc..."
+						content="Bookmarks | Ressources et outils du web (design, fonts, icons, et +)"
 					/>
 					<meta
 						property="twitter:site"
@@ -30,7 +30,7 @@ class MyDocument extends Document {
 					/>
 					<meta
 						property="twitter:description"
-						content="bookmarks est une base de donnée des outils favoris de squale.agency, chacun des outils sont regroupés par catégories, vous pouvez filtrer les résultats ou chercher un outil avec un mot clé."
+						content="Liste d'outils, de ressources et de services utilisés par squale.agency. Utile pour les créatifs, les développeurs ou encore le marketing. Mis à jour régulièrement !"
 					/>
 					<meta property="twitter:image" content="https://bookmarks.squale.agency/apple-touch-icon.png" />
 					<meta
