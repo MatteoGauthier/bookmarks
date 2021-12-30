@@ -20,7 +20,7 @@
 		"googleapis": "^83.0.0",
 		"immer": "^9.0.5",
 		"isomorphic-unfetch": "^3.1.0",
-		"next": "^10.2.3",
+		"next": "^12.0.7",
 		"next-auth": "^3.23.3",
 		"next-themes": "^0.0.14",
 		"react": "^17.0.2",
